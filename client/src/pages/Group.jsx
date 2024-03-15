@@ -1,20 +1,36 @@
-import React, { useState } from "react";
-import { Grid, IconButton, Tooltip, Box } from "@mui/material";
+import React, { memo, useState } from "react";
+import {
+  Grid,
+  IconButton,
+  Tooltip,
+  Box,
+  Drawer,
+  Stack,
+  Typography,
+} from "@mui/material";
 import {
   KeyboardBackspace as KeyboardBackspaceIcon,
   Menu as MenuIcon,
 } from "@mui/icons-material";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useSearchParams } from "react-router-dom";
+import { Link } from "../components/styles/StyledComponents";
+import AvatarCard from "../components/shared/AvatarCard";
+import { SampleChats } from "../constants/sampleData";
 
 const Group = () => {
   const navigate = useNavigate();
-  const [isMobileMenu, setisMobileMenu] = useState(false);
+  const [isMobileMenuOpen, setisMobileMenuOpen] = useState(false);
   const navigateBack = () => {
     navigate("/");
   };
   const handleMobile = () => {
-    setisMobileMenu((prev) => !prev);
+    setisMobileMenuOpen((prev) => !prev);
   };
+  const handleMobileClose = () => {
+    setisMobileMenuOpen(false);
+  };
+  const chatId = useSearchParams()[0].get("group");
+  console.log(chatId);
   const IconBtns = (
     <>
       <Box
@@ -64,7 +80,7 @@ const Group = () => {
         }}
         height={"100vh"}
       >
-        Group list
+        <GroupsList myGroups={SampleChats} chatId={chatId} />
       </Grid>
       <Grid
         item
@@ -80,8 +96,56 @@ const Group = () => {
       >
         {IconBtns}
       </Grid>
+      <Drawer
+        sx={{ display: { xs: "block", sm: "none" } }}
+        open={isMobileMenuOpen}
+        onClose={handleMobileClose}
+      >
+        <GroupsList w={"50vw"} myGroups={SampleChats} chatId={chatId} />
+      </Drawer>
     </Grid>
   );
 };
+
+const GroupsList = ({ w = "100%", myGroups = [], chatId }) => {
+  return (
+    <Stack width={w}>
+      {myGroups.length > 0 ? (
+        myGroups.map((group) => {
+          return (
+            <GroupListItem key={group._id} group={group} chatId={chatId} />
+          );
+        })
+      ) : (
+        <Typography textAlign={"center"} padding={"1rem"}>
+          No Groups Found
+        </Typography>
+      )}
+    </Stack>
+  );
+};
+const GroupListItem = memo(({ group, chatId }) => {
+  const { name, avatar, _id } = group;
+  return (
+    <Link
+      to={`?group=${_id}`}
+      onClick={(e) => {
+        if (chatId === _id) {
+          e.preventDefault();
+        }
+      }}
+    >
+      <Stack
+        direction={"row"}
+        spacing={"1rem"}
+        alignItems={"center"}
+        justifyContent={"center"}
+      >
+        <AvatarCard avatar={avatar} />
+        <Typography>{name}</Typography>
+      </Stack>
+    </Link>
+  );
+});
 
 export default Group;
