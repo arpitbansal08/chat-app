@@ -26,6 +26,66 @@ export const SampleChats = [
     groupChat: true,
     members: ["1", "2", "3"],
   },
+  {
+    avatar: ["https://material-ui.com/static/images/avatar/4.jpg"],
+    name: "John Black",
+    _id: "4",
+    groupChat: false,
+    members: ["1", "2"],
+  },
+
+  {
+    avatar: ["https://material-ui.com/static/images/avatar/5.jpg"],
+    name: "Alice Smith",
+    _id: "5",
+    groupChat: false,
+    members: ["1", "5"],
+  },
+  {
+    avatar: ["https://material-ui.com/static/images/avatar/6.jpg"],
+    name: "Bob Johnson",
+    _id: "6",
+    groupChat: false,
+    members: ["2", "6"],
+  },
+  {
+    avatar: ["https://material-ui.com/static/images/avatar/7.jpg"],
+    name: "Emily Brown",
+    _id: "7",
+    groupChat: false,
+    members: ["1", "7"],
+  },
+  {
+    avatar: ["https://material-ui.com/static/images/avatar/8.jpg"],
+    name: "Michael Johnson",
+    _id: "8",
+    groupChat: false,
+    members: ["2", "8"],
+  },
+  {
+    avatar: [
+      "https://material-ui.com/static/images/avatar/9.jpg",
+      "https://material-ui.com/static/images/avatar/10.jpg",
+    ],
+    name: "Group Chat 2",
+    _id: "9",
+    groupChat: true,
+    members: ["1", "2", "9"],
+  },
+  {
+    avatar: ["https://material-ui.com/static/images/avatar/11.jpg"],
+    name: "Sarah Smith",
+    _id: "10",
+    groupChat: false,
+    members: ["1", "10"],
+  },
+  {
+    avatar: ["https://material-ui.com/static/images/avatar/12.jpg"],
+    name: "David Johnson",
+    _id: "11",
+    groupChat: false,
+    members: ["2", "11"],
+  },
 ];
 
 export const SampleUsers = [
@@ -38,6 +98,46 @@ export const SampleUsers = [
     avatar: "https://material-ui.com/static/images/avatar/2.jpg",
     name: "Jane Doe",
     _id: "2",
+  },
+  {
+    avatar: "https://material-ui.com/static/images/avatar/3.jpg",
+    name: "Alice Smith",
+    _id: "3",
+  },
+  {
+    avatar: "https://material-ui.com/static/images/avatar/4.jpg",
+    name: "John Black",
+    _id: "4",
+  },
+  {
+    avatar: "https://material-ui.com/static/images/avatar/5.jpg",
+    name: "Emily Brown",
+    _id: "5",
+  },
+  {
+    avatar: "https://material-ui.com/static/images/avatar/6.jpg",
+    name: "Michael Johnson",
+    _id: "6",
+  },
+  {
+    avatar: "https://material-ui.com/static/images/avatar/7.jpg",
+    name: "Sarah Smith",
+    _id: "7",
+  },
+  {
+    avatar: "https://material-ui.com/static/images/avatar/8.jpg",
+    name: "David Johnson",
+    _id: "8",
+  },
+  {
+    avatar: "https://material-ui.com/static/images/avatar/9.jpg",
+    name: "Jessica Lee",
+    _id: "9",
+  },
+  {
+    avatar: "https://material-ui.com/static/images/avatar/10.jpg",
+    name: "Daniel Wilson",
+    _id: "10",
   },
 ];
 export const SampleNotifications = [

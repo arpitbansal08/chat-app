@@ -3,7 +3,13 @@ import { Avatar, IconButton, Typography } from "@mui/material";
 import { ListItem, Stack } from "@mui/material";
 import React from "react";
 import { memo } from "react";
-const UserItem = ({ user, handler, handlerIsLoading, isAdded = false }) => {
+const UserItem = ({
+  user,
+  handler,
+  handlerIsLoading,
+  isAdded = false,
+  styling,
+}) => {
   const { name, _id, avatar } = user;
 
   return (
@@ -13,6 +19,7 @@ const UserItem = ({ user, handler, handlerIsLoading, isAdded = false }) => {
         alignItems={"center"}
         spacing={"1rem"}
         width={"100%"}
+        {...styling}
       >
         <Avatar src={avatar} />
         <Typography
