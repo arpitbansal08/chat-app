@@ -1,7 +1,6 @@
-import React from "react";
-import { Link } from "../styles/StyledComponents";
 import { Box, Stack, Typography } from "@mui/material";
-import { memo } from "react";
+import React, { memo } from "react";
+import { Link } from "../styles/StyledComponents";
 import AvatarCard from "./AvatarCard";
 
 const ChatItem = ({

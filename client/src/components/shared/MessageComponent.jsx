@@ -1,7 +1,7 @@
 import { Box, Typography } from "@mui/material";
+import moment from "moment";
 import React, { memo } from "react";
 import { userColor } from "../../constants/color";
-import moment from "moment";
 import { fileFormat } from "../../lib/features";
 import RenderAttachement from "./RenderAttachement";
 

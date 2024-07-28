@@ -1,16 +1,3 @@
-import React, { Suspense, lazy, memo, useEffect, useState } from "react";
-import {
-  Grid,
-  IconButton,
-  Tooltip,
-  Box,
-  Drawer,
-  Stack,
-  Typography,
-  TextField,
-  Button,
-  Backdrop,
-} from "@mui/material";
 import {
   Add as AddIcon,
   Delete as DeleteIcon,
@@ -19,11 +6,24 @@ import {
   KeyboardBackspace as KeyboardBackspaceIcon,
   Menu as MenuIcon,
 } from "@mui/icons-material";
+import {
+  Backdrop,
+  Box,
+  Button,
+  Drawer,
+  Grid,
+  IconButton,
+  Stack,
+  TextField,
+  Tooltip,
+  Typography,
+} from "@mui/material";
+import React, { Suspense, lazy, memo, useEffect, useState } from "react";
 import { useNavigate, useSearchParams } from "react-router-dom";
-import { Link } from "../components/styles/StyledComponents";
 import AvatarCard from "../components/shared/AvatarCard";
-import { SampleChats, SampleUsers } from "../constants/sampleData";
 import UserItem from "../components/shared/UserItem";
+import { Link } from "../components/styles/StyledComponents";
+import { SampleChats, SampleUsers } from "../constants/sampleData";
 
 const ConfirmDeleteDialog = lazy(() =>
   import("../components/dialog/ConfirmDeleteDialog")

@@ -1,7 +1,5 @@
+import { Grid, Skeleton, Stack } from "@mui/material";
 import React from "react";
-import { Grid } from "@mui/material";
-import { Skeleton } from "@mui/material";
-import { Stack } from "@mui/material";
 export const LayoutLoader = () => {
   return (
     <Grid container height={"100vh"} spacing={"1rem"}>

@@ -1,5 +1,5 @@
+import { Avatar, AvatarGroup, Box, Stack } from "@mui/material";
 import React from "react";
-import { AvatarGroup, Stack, Box, Avatar } from "@mui/material";
 import { transform } from "../../lib/features";
 const AvatarCard = ({ avatar = [], max = 4 }) => {
   return (

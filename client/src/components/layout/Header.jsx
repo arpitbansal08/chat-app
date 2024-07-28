@@ -1,14 +1,3 @@
-import React, { Suspense, useState } from "react";
-import {
-  AppBar,
-  Box,
-  Toolbar,
-  Typography,
-  IconButton,
-  Backdrop,
-} from "@mui/material";
-import { orange } from "../../constants/color";
-import { Tooltip } from "@mui/material";
 import {
   Add as AddIcon,
   Group as GroupIcon,
@@ -17,8 +6,18 @@ import {
   Notifications as NotificationsIcon,
   Search as SearchIcon,
 } from "@mui/icons-material";
+import {
+  AppBar,
+  Backdrop,
+  Box,
+  IconButton,
+  Toolbar,
+  Tooltip,
+  Typography,
+} from "@mui/material";
+import React, { Suspense, lazy, useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { lazy } from "react";
+import { orange } from "../../constants/color";
 const SearchDialog = lazy(() => import("../specific/Search"));
 const NotificationDialog = lazy(() => import("../specific/Notification"));
 const NewGroupDialog = lazy(() => import("../specific/NewGroup"));
@@ -65,7 +64,7 @@ const Header = () => {
                 <MenuIcon />
               </IconButton>
             </Box>
-            <Box sx={{ flexGrow: "1" }} />
+            <Box sx={{ flexGrow: "1" }} /> {/* This is a spacer */}
             <Box>
               <IconBtn
                 title="Search"
