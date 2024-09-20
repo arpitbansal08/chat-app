@@ -17,7 +17,6 @@ import {
 import moment from "moment";
 import React from "react";
 import AdminLayout from "../../components/layout/AdminLayout";
-import { LayoutLoader } from "../../components/layout/Loaders";
 import { DoughnutChart, LineChart } from "../../components/specific/Chart";
 import {
   CurvedButton,
@@ -114,7 +113,6 @@ const Dashboard = () => {
                 alignItems: "center",
                 width: { xs: "100%", sm: "50%" },
                 position: "relative",
-                width: "100%",
                 maxWidth: "25rem",
               }}
             >
