@@ -16,9 +16,11 @@ import {
   Typography,
   styled,
 } from "@mui/material";
-import React, { useState } from "react";
-import { Link as LinkComponent, useLocation,Navigate } from "react-router-dom";
+import { react as React, useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { Link as LinkComponent, Navigate, useLocation } from "react-router-dom";
 import { grayColor } from "../../constants/color";
+import { adminLogout } from "../../redux/thunks/admin";
 
 const Link = styled(LinkComponent)`
   text-decoration: none;
@@ -47,7 +49,9 @@ const adminTabs = [
 
 const SideBar = ({ w = "100%" }) => {
   const location = useLocation();
+  const dispatch = useDispatch();
   const logoutHandler = () => {
+    dispatch(adminLogout());
     console.log("Logout");
   };
   return (
@@ -76,7 +80,7 @@ const SideBar = ({ w = "100%" }) => {
         ))}
         <Link onClick={logoutHandler}>
           <Stack direction={"row"} alignItems={"center"} spacing={"1rem"}>
-            <ExitToAppIcon/>
+            <ExitToAppIcon />
             <Typography fontSize={"1.2rem"}>Logout</Typography>
           </Stack>
         </Link>
@@ -85,9 +89,8 @@ const SideBar = ({ w = "100%" }) => {
   );
 };
 
-const isAdmin=true;
-
 const AdminLayout = ({ children }) => {
+  const { isAdmin } = useSelector((state) => state.auth);
   const [isMobile, setisMobile] = useState(false);
 
   const handleMobile = () => {
@@ -96,7 +99,7 @@ const AdminLayout = ({ children }) => {
   const handleClose = () => {
     setisMobile(false);
   };
-  if(!isAdmin){
+  if (!isAdmin) {
     return <Navigate to="/admin" />;
   }
 

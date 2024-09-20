@@ -26,7 +26,7 @@ const adminLogin = async (req, res, next) => {
 };
 
 const adminLogout = async (req, res, next) => {
-  res
+  return res
     .status(200)
     .cookie("chatU-Admin-Token", "", { ...cookieOptions, maxAge: 0 })
     .json({ success: true, message: "Admin Logged Out Successfully" });
@@ -63,7 +63,7 @@ const allChats = async (req, res, next) => {
     const chats = await Chat.find()
       .populate("members", "name avatar")
       .populate("creator", "name avatar");
-      // here we are creating transformedChats array by mapping over chats array where we are spreading the
+    // here we are creating transformedChats array by mapping over chats array where we are spreading the
     //   also avatar only 4 memebrs as per frontend created
     //    members array and then we are returning the transformed object with the required fields
     const transformedChats = await Promise.all(

@@ -1,10 +1,12 @@
-import { Avatar, Box, Stack } from "@mui/material";
+import { useFetchData } from "6pp";
+import { Avatar, Box, Skeleton, Stack } from "@mui/material";
 import moment from "moment";
 import React, { useEffect } from "react";
 import AdminLayout from "../../components/layout/AdminLayout";
 import RenderAttachement from "../../components/shared/RenderAttachement";
 import Table from "../../components/shared/Table";
-import { dashboardData } from "../../constants/sampleData";
+import { server } from "../../constants/config";
+import { useErrors } from "../../hooks/hook";
 import { fileFormat, transform } from "../../lib/features";
 const columns = [
   {
@@ -78,28 +80,39 @@ const columns = [
   },
 ];
 const MessageManagement = () => {
+  const { loading, data, error } = useFetchData(
+    `${server}/api/v1/admin/messages`,
+    "dashboard-messages"
+  );
+  useErrors([{ isError: error, error: error }]);
   const [rows, setRows] = React.useState([]);
   useEffect(() => {
-    setRows(
-      dashboardData.messages.map((index) => ({
-        ...index,
-        id: index._id,
-        sender: {
-          name: index.sender.name,
-          avatar: transform(index.sender.avatar, 50),
-        },
-        createdAt: moment(index.createdAt).format("MMMM Do YYYY, h:mm:ss a"),
-      }))
-    );
-  }, []);
+    if (data) {
+      setRows(
+        data.messages.map((index) => ({
+          ...index,
+          id: index._id,
+          sender: {
+            name: index.sender.name,
+            avatar: transform(index.sender.avatar, 50),
+          },
+          createdAt: moment(index.createdAt).format("MMMM Do YYYY, h:mm:ss a"),
+        }))
+      );
+    }
+  }, [data]);
   return (
     <AdminLayout>
-      <Table
-        heading={"All Messages"}
-        rows={rows}
-        columns={columns}
-        rowHeight={200}
-      />
+      {loading ? (
+        <Skeleton height={"100vh"} />
+      ) : (
+        <Table
+          heading={"All Messages"}
+          rows={rows}
+          columns={columns}
+          rowHeight={200}
+        />
+      )}
     </AdminLayout>
   );
 };

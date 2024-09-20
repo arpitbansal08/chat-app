@@ -4,15 +4,21 @@ import React, { memo } from "react";
 import { userColor } from "../../constants/color";
 import { fileFormat } from "../../lib/features";
 import RenderAttachement from "./RenderAttachement";
+import { motion } from "framer-motion";
 
 const MessageComponent = ({ message, user }) => {
-  const { sender, content, attachements = [], createdAt } = message;
+  const { sender, content, attachments = [], createdAt } = message;
   const sameSender = sender?._id === user?._id;
   const timeAgo = moment(createdAt).fromNow();
   return (
-    <div
+    <motion.div
+      initial={{ opacity: 0, x:"-100%" }}
+      whileInView={{ opacity: 1, x:0 }}
       style={{
         alignSelf: sameSender ? "flex-end" : "flex-start",
+        backgroundColor: "wheat",
+        borderRadius: "9px",
+        padding: "0.5rem",
       }}
     >
       {!sameSender && (
@@ -30,17 +36,14 @@ const MessageComponent = ({ message, user }) => {
           variant="body1"
           sx={{
             color: "black",
-            backgroundColor: "wheat",
-            borderRadius: "9px",
-            padding: "0.4rem",
             width: "fit-content",
           }}
         >
           {content}
         </Typography>
       )}
-      {attachements.length > 0 &&
-        attachements.map((attachment, index) => {
+      {attachments.length > 0 &&
+        attachments.map((attachment, index) => {
           const url = attachment.url;
           const fileType = fileFormat(url);
           return (
@@ -56,7 +59,7 @@ const MessageComponent = ({ message, user }) => {
       <Typography variant="caption" color={"text.secondary"}>
         {timeAgo}
       </Typography>
-    </div>
+    </motion.div>
   );
 };
 

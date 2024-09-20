@@ -7,6 +7,10 @@ const schema = mongoose.Schema(
       type: String,
       required: true,
     },
+    bio: {
+      type: String,
+      required: true,
+    },
     username: {
       type: String,
       required: true,
@@ -34,7 +38,7 @@ const schema = mongoose.Schema(
 );
 schema.pre("save", async function (next) {
   if (!this.isModified("password")) {
-    next();
+    return next();
   }
   this.password = await hash(this.password, 10);
 });

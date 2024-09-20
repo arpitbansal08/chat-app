@@ -50,7 +50,7 @@ const LineChart = ({ value = [] }) => {
     labels: labels,
     datasets: [
       {
-        label: "Sales for 2020 (M)",
+        label: "Messages",
         data: value,
         fill: true,
         borderColor: ["rgba(255, 206, 86, 1)"],

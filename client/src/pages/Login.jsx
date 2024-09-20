@@ -1,4 +1,5 @@
-import React, { useId } from "react";
+import { useFileHandler, useInputValidation } from "6pp";
+import { CameraAlt as CameraAltIcon } from "@mui/icons-material";
 import {
   Avatar,
   Button,
@@ -9,31 +10,89 @@ import {
   TextField,
   Typography,
 } from "@mui/material";
-import { useState } from "react";
-import { CameraAlt as CameraAltIcon } from "@mui/icons-material";
+import axios from "axios";
+import React, { useState } from "react";
+import toast from "react-hot-toast";
+import { useDispatch } from "react-redux";
 import { VisuallyHiddenInput } from "../components/styles/StyledComponents";
-import { useFileHandler, useInputValidation, useStrongPassword } from "6pp";
+import { server } from "../constants/config";
+import { userExists } from "../redux/Reducer/auth";
 import { usernameValidator } from "../utils/validators";
 
 const Login = () => {
   const [isLoggedIn, setisLoggedIn] = useState(true);
+  const [isLoading, setIsLoading] = useState(false);
   const toggleLogin = () => {
     setisLoggedIn(!isLoggedIn);
   };
   const name = useInputValidation("");
   const bio = useInputValidation("");
   const username = useInputValidation("", usernameValidator);
-  //   const password = useStrongPassword();
+
   const password = useInputValidation("");
   const avatar = useFileHandler("single");
 
-  const loginHandler = (e) => {
+  const dispatch = useDispatch();
+  const loginHandler = async (e) => {
     e.preventDefault();
-    console.log("Logging in...");
+    const toastId = toast.loading("Logging in ...");
+    setIsLoading(true);
+    const config = {
+      withCredentials: true,
+      headers: {
+        "Content-Type": "application/json",
+      },
+    };
+    try {
+      const { data } = await axios.post(
+        `${server}/api/v1/user/login`,
+        {
+          username: username.value,
+          password: password.value,
+        },
+        config
+      );
+      dispatch(userExists(data.user));
+      toast.success(data.message, { id: toastId });
+    } catch (err) {
+      toast.error(err?.response?.data?.message || "Something went wrong", {
+        id: toastId,
+      });
+    } finally {
+      setIsLoading(false);
+    }
   };
-  const signupHandler = (e) => {
+  const signupHandler = async (e) => {
     e.preventDefault();
-    console.log("Signing up...");
+    const toastId = toast.loading("Signing up ...");
+    setIsLoading(true);
+    const formData = new FormData();
+    formData.append("name", name.value);
+    formData.append("bio", bio.value);
+    formData.append("username", username.value);
+    formData.append("password", password.value);
+    formData.append("avatar", avatar.file);
+    const config = {
+      withCredentials: true,
+      headers: {
+        "Content-Type": "multipart/form-data",
+      },
+    };
+    try {
+      const { data } = await axios.post(
+        `${server}/api/v1/user/new`,
+        formData,
+        config
+      );
+      dispatch(userExists(data.user));
+      toast.success(data.message, { id: toastId });
+    } catch (err) {
+      toast.error(err?.response?.data?.message || "Something went wrong", {
+        id: toastId,
+      });
+    } finally {
+      setIsLoading(false);
+    }
   };
 
   return (
@@ -97,6 +156,7 @@ const Login = () => {
                   type="submit"
                   fullWidth
                   sx={{ marginTop: "1rem" }}
+                  disabled={isLoading}
                 >
                   Login
                 </Button>
@@ -108,6 +168,7 @@ const Login = () => {
                   fullWidth
                   onClick={toggleLogin}
                   sx={{ marginTop: "1rem" }}
+                  disabled={isLoading}
                 >
                   Sign Up Instead
                 </Button>
@@ -217,6 +278,7 @@ const Login = () => {
                   type="submit"
                   fullWidth
                   sx={{ marginTop: "1rem" }}
+                  disabled={isLoading}
                 >
                   Sign Up
                 </Button>
@@ -228,6 +290,7 @@ const Login = () => {
                   fullWidth
                   onClick={toggleLogin}
                   sx={{ marginTop: "1rem" }}
+                  disabled={isLoading}
                 >
                   Login Instead
                 </Button>

@@ -3,5 +3,4 @@ export const usernameValidator = (username) => {
   if (!isValidUsername(username)) {
     return { isValid: false, errorMessage: "Invalid username" };
   }
-  
 };

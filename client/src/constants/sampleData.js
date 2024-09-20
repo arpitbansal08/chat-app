@@ -56,7 +56,7 @@ export const SampleChats = [
     members: ["1", "7"],
   },
   {
-    avatar: ["https://material-ui.com/static/images/avatar/8.jpg"],
+    avatar: ["https://material-ui.com/static/images/avatar/6.jpg"],
     name: "Michael Johnson",
     _id: "8",
     groupChat: false,
@@ -64,8 +64,8 @@ export const SampleChats = [
   },
   {
     avatar: [
-      "https://material-ui.com/static/images/avatar/9.jpg",
-      "https://material-ui.com/static/images/avatar/10.jpg",
+      "https://material-ui.com/static/images/avatar/1.jpg",
+      "https://material-ui.com/static/images/avatar/2.jpg",
     ],
     name: "Group Chat 2",
     _id: "9",
@@ -73,14 +73,14 @@ export const SampleChats = [
     members: ["1", "2", "9"],
   },
   {
-    avatar: ["https://material-ui.com/static/images/avatar/11.jpg"],
+    avatar: ["https://material-ui.com/static/images/avatar/4.jpg"],
     name: "Sarah Smith",
     _id: "10",
     groupChat: false,
     members: ["1", "10"],
   },
   {
-    avatar: ["https://material-ui.com/static/images/avatar/12.jpg"],
+    avatar: ["https://material-ui.com/static/images/avatar/6.jpg"],
     name: "David Johnson",
     _id: "11",
     groupChat: false,
@@ -125,7 +125,7 @@ export const SampleUsers = [
     _id: "7",
   },
   {
-    avatar: "https://material-ui.com/static/images/avatar/8.jpg",
+    avatar: "https://material-ui.com/static/images/avatar/3.jpg",
     name: "David Johnson",
     _id: "8",
   },
@@ -208,6 +208,8 @@ export const SampleMessages = [
     attachements: [
       { url: "https://material-ui.com/static/images/avatar/3.jpg" },
     ],
+    content: "Huuue",
+    _id: "dsdsdds4", // message Id
     sender: {
       _id: "user._id",
       name: "Khaman",

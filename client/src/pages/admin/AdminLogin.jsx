@@ -1,23 +1,22 @@
-import {
-  Paper,
-  Typography,
-  TextField,
-  Button,
-} from "@mui/material";
 import { useInputValidation } from "6pp";
-import React from "react";
-import { Container } from "@mui/material";
+import { Button, Container, Paper, TextField, Typography } from "@mui/material";
+import React, { useEffect } from "react";
+import { useDispatch, useSelector } from "react-redux";
 import { Navigate } from "react-router-dom";
-
-const isAdmin = false;
-
+import { adminLogin, getAdmin } from "../../redux/thunks/admin";
 const AdminLogin = () => {
+  const { isAdmin } = useSelector((state) => state.auth);
+  const dispatch = useDispatch();
   const secretKey = useInputValidation("");
+
   const submitHandler = (e) => {
     e.preventDefault();
     console.log("Logging in...");
+    dispatch(adminLogin(secretKey.value));
   };
-
+  useEffect(() => {
+    dispatch(getAdmin());
+  }, [dispatch]);
   if (isAdmin) {
     return <Navigate to="/admin/dashboard" />;
   }

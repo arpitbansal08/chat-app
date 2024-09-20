@@ -40,7 +40,7 @@ const addMemberValidator = () => [
   body("members")
     .notEmpty()
     .withMessage("Please enter members")
-    .isArray({ min: 2, max: 100 })
+    .isArray({ min: 1, max: 100 })
     .withMessage("Members should be an array with minimum 1 member"),
 ];
 const removeMemberValidator = () => [
@@ -53,6 +53,7 @@ const sendAttachmentsValidator = () => [
 ];
 
 const chatIdValidator = () => [param("id", "Please enter chatId").notEmpty()];
+
 const renameGroupValidator = () => [
   param("id", "Please enter chatId").notEmpty(),
   body("name", "Please enter new Name").notEmpty(),

@@ -3,7 +3,12 @@ import { NEW_REQUEST, REFETCH_CHATS } from "../constants/events.js";
 import { Chat } from "../models/chat.js";
 import { Request } from "../models/request.js";
 import { User } from "../models/user.js";
-import { cookieOptions, emmitEvent, sendToken } from "../utils/features.js";
+import {
+  cookieOptions,
+  emmitEvent,
+  sendToken,
+  uploadFilesToCloudinary,
+} from "../utils/features.js";
 import ErrorHandler from "../utils/utility.js";
 import { getOtherMember } from "../lib/helper.js";
 // Create new user and save to database and save token in cookie
@@ -14,9 +19,12 @@ const newUser = async (req, res, next) => {
     if (!file) {
       return next(new ErrorHandler("Please upload an avatar", 400));
     }
+
+    const result = await uploadFilesToCloudinary([file]);
+    console.log("result", result);
     const avatar = {
-      public_id: "123",
-      url: "https://www.google.com",
+      public_id: result[0].public_id,
+      url: result[0].url,
     };
     const user = await User.create({
       name,
@@ -47,6 +55,7 @@ const login = async (req, res, next) => {
       sendToken(res, user, 200, `User logged in , Welcome ${user.name}`);
     }
   } catch (err) {
+    console.log("Rer", err);
     next(new ErrorHandler(err.message, 500));
   }
 };
@@ -59,6 +68,7 @@ const getMyProfile = async (req, res, next) => {
       user,
     });
   } catch (err) {
+    console.log("dsd");
     next(new ErrorHandler(err.message, 500));
   }
 };
@@ -92,6 +102,10 @@ const searchUser = async (req, res, next) => {
       avatar: avatar.url,
     }));
     const a = req.user;
+    users.splice(
+      users.findIndex((user) => user._id.toString() === a),
+      1
+    );
     return res.status(200).json({
       success: true,
       users,
